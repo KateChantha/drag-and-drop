@@ -86,10 +86,11 @@ ul {
   background-color: var(--column-4);
 }
 
+/* https://css-tricks.com/the-current-state-of-styling-scrollbars/ */
 /* Custom Scrollbar */
 .custom-scroll {
   overflow-y: auto;
-  max-height: 75vh;
+  max-height: 52vh;
 }
 
 .custom-scroll::-webkit-scrollbar-track {
