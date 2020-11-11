@@ -1,4 +1,4 @@
-/* Trees Image - Pexels: https://www.pexels.com/photo/photo-of-trees-in-forest-3801030/ */
+/* Donuts Image - Pexels: https://www.pexels.com/photo/close-up-photo-of-pink-donuts-1982485/ */
 @import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
 
 html {
@@ -14,7 +14,7 @@ html {
 
 body {
   margin: 0;
-  background: url("./trees.jpg");
+  background: url("./donuts.jpg");
   background-size: cover;
   background-position: 50% 60%;
   background-attachment: fixed;
