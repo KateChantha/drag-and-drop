@@ -1,3 +1,4 @@
+// Array query
 const addBtns = document.querySelectorAll('.add-btn:not(.solid)');
 const saveItemBtns = document.querySelectorAll('.solid');
 const addItemContainers = document.querySelectorAll('.add-container');
@@ -17,6 +18,7 @@ let backlogListArray = [];
 let progressListArray = [];
 let completeListArray = [];
 let onHoldListArray = [];
+let listArray = [];
 
 // Drag Functionality
 
@@ -29,6 +31,7 @@ function getSavedColumns() {
     completeListArray = JSON.parse(localStorage.completeItems);
     onHoldListArray = JSON.parse(localStorage.onHoldItems);
   } else {
+    // initial value hard coded
     backlogListArray = ['Release the course', 'Sit back and relax'];
     progressListArray = ['Work on projects', 'Listen to music'];
     completeListArray = ['Being cool', 'Getting stuff done'];
@@ -38,11 +41,16 @@ function getSavedColumns() {
 
 // Set localStorage Arrays
 function updateSavedColumns() {
-  localStorage.setItem('backlogItems', JSON.stringify(backlogListArray));
-  localStorage.setItem('progressItems', JSON.stringify(progressListArray));
-  localStorage.setItem('completeItems', JSON.stringify(completeListArray));
-  localStorage.setItem('onHoldItems', JSON.stringify(onHoldListArray));
+  listArray = [backlogListArray, progressListArray, completeListArray, onHoldListArray];
+  const arrayNames = ['backlog', 'progress','complete', 'onHold'];
+  arrayNames.forEach((name, idx) => {
+    localStorage.setItem(`${name}Items`, JSON.stringify(listArray[idx]));
+  });
 }
+
+getSavedColumns();
+updateSavedColumns();
+
 
 // Create DOM Elements for each list item
 function createItemEl(columnEl, column, item, index) {
