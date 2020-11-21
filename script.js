@@ -4,7 +4,7 @@ const saveItemBtns = document.querySelectorAll('.solid');
 const addItemContainers = document.querySelectorAll('.add-container');
 const addItems = document.querySelectorAll('.add-item');
 // Item Lists
-const itemLists = document.querySelectorAll('.drag-item-list');
+const listColumns = document.querySelectorAll('.drag-item-list');
 const backlogList = document.getElementById('backlog-list');
 const progressList = document.getElementById('progress-list');
 const completeList = document.getElementById('complete-list');
@@ -21,6 +21,44 @@ let onHoldListArray = [];
 let listArray = [];
 
 // Drag Functionality
+let draggedItem;
+let currentColumn;
+
+// when item start dragging
+function drag(e) {
+  draggedItem = e.target;
+  console.log('dragItem', draggedItem)
+}
+
+/**
+ * 
+ * @param {*} column 
+ * ref html: column is a number hardcoded in each ul element
+ * ref: <ul ondragenter="dragEnter(0)">
+ */
+// When Item Enters Column Area
+function dragEnter(column) {
+  // show backgroung color/padding to column that is over
+  listColumns[column].classList.add("over");
+  currentColumn = column;
+}
+
+// Colunm Allows for Item to Drop
+function allowDrop(e) {
+  e.preventDefault();
+}
+
+// Dropping Item in Column
+function drop(e) {
+  e.preventDefault();
+  // remove background color/padding
+  listColumns.forEach(column => {
+    column.classList.remove('over');
+  })
+  // add item to column
+  const parent = listColumns[currentColumn];
+  parent.appendChild(draggedItem);
+}
 
 
 // Get Arrays from localStorage if available, set default values if not
@@ -58,6 +96,9 @@ function createItemEl(columnEl, column, item, index) {
   const listEl = document.createElement('li');
   listEl.classList.add('drag-item');
   listEl.textContent = item;
+  listEl.draggable = true;
+  // set attribute of ondragstart to our drag fucntion
+  listEl.setAttribute('ondragstart', 'drag(event)')
   // Append
   columnEl.appendChild(listEl);
 }
