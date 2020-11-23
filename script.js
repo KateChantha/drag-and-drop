@@ -164,8 +164,11 @@ function updateItem(id, column) {
   if (!selectedColumnEl[id].textContent) {
     // this will make content to null
     delete selectedArray[id];
+  } else {
+    // if content is not empty, update with the current content
+    selectedArray[id] = selectedColumnEl[id].textContent
   }
-  console.log('selectedArray: ', selectedArray);
+  
   updateDOM();
 }
 
