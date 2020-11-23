@@ -162,5 +162,31 @@ function rebuildArrays() {
   updateDOM();
 }
 
+// Add Text Content to Column List
+// and reset textbox
+function addInputToColumn(column) {
+  // console.log(addItems[column].textContent);
+  const itemText = addItems[column].textContent;
+  const selectedArray = listArray[column];
+  selectedArray.push(itemText);
+  addItems[column].textContent = '';
+  updateDOM();
+}
+
+// Show Add Item Input Box
+function showInputBox(column) {
+  addBtns[column].style.visibility = 'hidden';
+  saveItemBtns[column].style.display = 'flex';
+  addItemContainers[column].style.display = 'flex';
+}
+
+// Hide Item Input Box
+function hideInputBox(column) {
+  addBtns[column].style.visibility = 'visible';
+  saveItemBtns[column].style.display = 'none';
+  addItemContainers[column].style.display = 'none';
+  addInputToColumn(column);
+}
+
 // On Load
 updateDOM();
