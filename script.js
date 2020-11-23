@@ -88,6 +88,14 @@ function updateSavedColumns() {
   });
 }
 
+// Filter Array to remove empty items(null)
+function filterEmptyItem(array){
+  const filteredArray = array.filter(item => item !== null);
+  return filteredArray;
+
+}
+
+
 // Create DOM Elements for each list item
 function createItemEl(columnEl, column, item, index) {
   // console.log('columnEl:', columnEl);
@@ -101,6 +109,10 @@ function createItemEl(columnEl, column, item, index) {
   listEl.draggable = true;
   // set attribute of ondragstart to our drag fucntion
   listEl.setAttribute('ondragstart', 'drag(event)')
+  listEl.contentEditable = true;
+  // onFocus Event
+  listEl.id = index;
+  listEl.setAttribute('onfocusout', `updateItem(${index}, ${column})`);
   // Append
   columnEl.appendChild(listEl);
 }
@@ -116,25 +128,45 @@ function updateDOM() {
   backlogListArray.forEach((item, idx) => {
     createItemEl(backlogList, 0, item, idx);
   })
+  backlogListArray = filterEmptyItem(backlogListArray);
   // Progress Column
   progressList.textContent = '';
   progressListArray.forEach((item, idx) => {
-    createItemEl(progressList, 0, item, idx);
+    createItemEl(progressList, 1, item, idx);
   })
+  progressListArray = filterEmptyItem(progressListArray);
   // Complete Column
   completeList.textContent = '';
   completeListArray.forEach((item, idx) => {
-    createItemEl(completeList, 0, item, idx);
+    createItemEl(completeList, 2, item, idx);
   })
+  completeListArray = filterEmptyItem(completeListArray);
   // On Hold Column
   onHoldList.textContent = '';
   onHoldListArray.forEach((item, idx) => {
-    createItemEl(onHoldList, 0, item, idx);
+    createItemEl(onHoldList, 3, item, idx);
   })
+  onHoldListArray = filterEmptyItem(onHoldListArray);
   // Run getSavedColumns only once
   updateOnLoad = true;
   // Update Local Storage
   updateSavedColumns();
+}
+
+// Update Item - Delete if necessary, or update Array value
+function updateItem(id, column) {
+  const selectedArray = listArray[column];
+  // console.log('selectedArray: ', selectedArray);
+  const selectedColumnEl = listColumns[column].children;
+  // console.log(selectedColumnEl[id].textContent);
+
+  // if content is blank/ empty
+  if (!selectedColumnEl[id].textContent) {
+    // this will make content to null
+    delete selectedArray[id];
+  }
+  console.log('selectedArray: ', selectedArray);
+  updateDOM();
 }
 
 // Allows arrays to reflect Drag and Drop items
