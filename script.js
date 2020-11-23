@@ -23,11 +23,15 @@ let listArray = [];
 // Drag Functionality
 let draggedItem;
 let currentColumn;
+// turn value to true when drag()
+// turn value to flase when drop()
+let dragging = false;
 
 // when item start dragging
 function drag(e) {
   draggedItem = e.target;
-  console.log('dragItem', draggedItem)
+  // console.log('dragItem', draggedItem)
+  dragging = true;
 }
 
 /**
@@ -58,6 +62,8 @@ function drop(e) {
   // add item to column
   const parent = listColumns[currentColumn];
   parent.appendChild(draggedItem);
+  // draggin complete
+  dragging = false;
   // Update with droped items
   rebuildArrays();
 }
@@ -160,16 +166,17 @@ function updateItem(id, column) {
   const selectedColumnEl = listColumns[column].children;
   // console.log(selectedColumnEl[id].textContent);
 
-  // if content is blank/ empty
-  if (!selectedColumnEl[id].textContent) {
-    // this will make content to null
-    delete selectedArray[id];
-  } else {
-    // if content is not empty, update with the current content
-    selectedArray[id] = selectedColumnEl[id].textContent
+  if (!dragging) {
+      // if content is blank/ empty
+    if (!selectedColumnEl[id].textContent) {
+      // this will make content to null
+      delete selectedArray[id];
+    } else {
+      // if content is not empty, update with the current content
+      selectedArray[id] = selectedColumnEl[id].textContent
+    }
+    updateDOM();
   }
-  
-  updateDOM();
 }
 
 // Allows arrays to reflect Drag and Drop items
