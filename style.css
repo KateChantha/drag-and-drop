@@ -11,10 +11,10 @@ html {
 }
 
 :root {
-  --column-1: #e5e863;
-  --column-2: #44e6e6;
-  --column-3: #44cba2;
-  --column-4: #d05247;
+  --column-1:#FFCE54;
+  --column-2:#4FC1E9;
+  --column-3:#48CFAD;
+  --column-4: #ED5565;
 }
 
 body {
@@ -56,21 +56,22 @@ h1 {
 
 h1 img {
   width: 4%;
+  max-width: 44px;
 }
+
 
 .main-title {
   text-align: center;
-  font-size: 4rem;
-  margin-bottom: 40px;
+  font-size: 3rem;
   position: relative;
-  margin: 0 10px;
-  margin-bottom: 30px;
+  margin: 0 1rem;
+  /* margin-bottom: 1rem; */
   font-family: sans-serif;
-  font-size: 4rem;
   letter-spacing: normal;
   /* color: rgb(196,77,88); */
-  color: rgb(45, 141, 175);
-  text-shadow: 2px 2px 5px rgb(178, 227, 230);
+  color: rgb(244, 140, 176);
+  /* text-shadow: 2px 2px 5px rgb(159, 226, 233); */
+  -webkit-text-stroke: 0.2rem #FF001F;
 }
 
 @media screen and (max-width: 415px) {
