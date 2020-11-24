@@ -183,24 +183,20 @@ function updateItem(id, column) {
 function rebuildArrays() {
   // after drop -  browser dom is updated the HTMLCllection
   // we will need to rebuild our arrayList per dom updated contents
-    // reset/ empty out each ListArray
-    // push update contents to ListArray
-  backlogListArray = []
-  for (let i=0; i<backlogList.children.length; i++) {
-    backlogListArray.push(backlogList.children[i].textContent);
-  }
-  progressListArray = []
-  for (let i=0; i<progressList.children.length; i++) {
-    progressListArray.push(progressList.children[i].textContent);
-  }
-  completeListArray = []
-  for (let i=0; i<completeList.children.length; i++) {
-    completeListArray.push(completeList.children[i].textContent);
-  }
-  onHoldListArray = []
-  for (let i=0; i<onHoldList.children.length; i++) {
-    onHoldListArray.push(onHoldList.children[i].textContent);
-  }
+  // Important Note: backlogList.children is HTMLCollection array like object
+  backlogListArray = Array.from(backlogList.children).map(el => el.textContent);
+  progressListArray = Array.from(progressList.children).map(el => el.textContent);
+  completeListArray = Array.from(completeList.children).map(el => el.textContent);
+  onHoldListArray = Array.from(onHoldList.children).map(el => el.textContent);
+  
+  // completeListArray = []
+  // for (let i=0; i<completeList.children.length; i++) {
+  //   completeListArray.push(completeList.children[i].textContent);
+  // }
+  // onHoldListArray = []
+  // for (let i=0; i<onHoldList.children.length; i++) {
+  //   onHoldListArray.push(onHoldList.children[i].textContent);
+  // }
   updateDOM();
 }
 
