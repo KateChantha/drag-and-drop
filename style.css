@@ -11,10 +11,10 @@ html {
 }
 
 :root {
-  --column-1: #a2622d;
-  --column-2: #1b6161;
-  --column-3: #248224;
-  --column-4: #a22d22;
+  --column-1: #e5e863;
+  --column-2: #44e6e6;
+  --column-3: #44cba2;
+  --column-4: #d05247;
 }
 
 body {
@@ -45,7 +45,9 @@ body {
 
 h1 {
   letter-spacing: 2px;
-  color:white;
+  color:white;   
+  font-weight: bold;
+  font-family: sans-serif;
   text-shadow: 2px 2px 5px black;
   margin: 5px;
   padding: 5px;
@@ -66,7 +68,8 @@ h1 img {
   font-family: sans-serif;
   font-size: 4rem;
   letter-spacing: normal;
-  color: rgb(196,77,88);
+  /* color: rgb(196,77,88); */
+  color: rgb(45, 141, 175);
   text-shadow: 2px 2px 5px rgb(178, 227, 230);
 }
 
