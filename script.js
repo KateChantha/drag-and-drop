@@ -98,7 +98,6 @@ function updateSavedColumns() {
 function filterEmptyItem(array){
   const filteredArray = array.filter(item => item !== null);
   return filteredArray;
-
 }
 
 
@@ -196,6 +195,7 @@ function rebuildArrays() {
 function addInputToColumn(column) {
   // console.log(addItems[column].textContent);
   const itemText = addItems[column].textContent;
+  if (!itemText) return;
   const selectedArray = listArray[column];
   selectedArray.push(itemText);
   addItems[column].textContent = '';
