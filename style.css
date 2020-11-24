@@ -45,20 +45,41 @@ body {
 
 h1 {
   letter-spacing: 2px;
-  color:black;
+  color:white;
   text-shadow: 2px 2px 5px black;
   margin: 5px;
   padding: 5px;
   
 }
 
+h1 img {
+  width: 4%;
+}
+
 .main-title {
   text-align: center;
-  font-size: 3rem;
+  font-size: 4rem;
   margin-bottom: 40px;
   position: relative;
   margin: 0 10px;
   margin-bottom: 30px;
+  font-family: sans-serif;
+  font-size: 4rem;
+  letter-spacing: normal;
+  color: rgb(196,77,88);
+  text-shadow: 2px 2px 5px rgb(178, 227, 230);
+}
+
+@media screen and (max-width: 415px) {
+  .main-title {
+    font-family: sans-serif;
+    font-size: 2rem;
+  }
+}
+@media screen and (max-width: 846px) {
+  h1 img {
+    width: 8%;
+  }
 }
 
 ul {
@@ -246,11 +267,11 @@ ul {
 }
 
 /* Media Query: Laptop */
-@media screen and (max-width: 1800px) {
+/* @media screen and (max-width: 1800px) {
   .main-title {
     font-size: 2rem;
   }
-}
+} */
 
 /* Media Query: Large Smartphone (Vertical) */
 @media screen and (max-width: 600px) {
