@@ -4,7 +4,7 @@
 
 #### 2. [Drag and Drop API](https://www.w3schools.com/html/html5_draganddrop.asp)  & [ondragenter Attribute](https://www.w3schools.com/tags/att_ondragenter.asp)
 
-#### 3. Make a text input using <div> [Making content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content)
+#### 3. Make a text input using div tag [Making content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content)
 
 ### Future Improvements
 - Fixing the highlighting
