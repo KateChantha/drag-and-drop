@@ -23,11 +23,15 @@ let listArray = [];
 // Drag Functionality
 let draggedItem;
 let currentColumn;
+// turn value to true when drag()
+// turn value to flase when drop()
+let dragging = false;
 
 // when item start dragging
 function drag(e) {
   draggedItem = e.target;
-  console.log('dragItem', draggedItem)
+  // console.log('dragItem', draggedItem)
+  dragging = true;
 }
 
 /**
@@ -58,6 +62,8 @@ function drop(e) {
   // add item to column
   const parent = listColumns[currentColumn];
   parent.appendChild(draggedItem);
+  // draggin complete
+  dragging = false;
   // Update with droped items
   rebuildArrays();
 }
@@ -72,10 +78,10 @@ function getSavedColumns() {
     onHoldListArray = JSON.parse(localStorage.onHoldItems);
   } else {
     // initial mock data hard coded
-    backlogListArray = ['Release the course', 'Sit back and relax'];
-    progressListArray = ['Work on projects', 'Listen to music'];
-    completeListArray = ['Being cool', 'Getting stuff done'];
-    onHoldListArray = ['Being uncool'];
+    backlogListArray = ['Logos on Cafe homepage', 'Update budget'];
+    progressListArray = ['Set schedule with PM', 'Listen to music'];
+    completeListArray = ['Send thank you notes', 'Coffee and donuts myself'];
+    onHoldListArray = ['Exercise'];
   }
 }
 
@@ -87,6 +93,13 @@ function updateSavedColumns() {
     localStorage.setItem(`${name}Items`, JSON.stringify(listArray[idx]));
   });
 }
+
+// Filter Array to remove empty items(null)
+function filterEmptyItem(array){
+  const filteredArray = array.filter(item => item !== null);
+  return filteredArray;
+}
+
 
 // Create DOM Elements for each list item
 function createItemEl(columnEl, column, item, index) {
@@ -101,6 +114,10 @@ function createItemEl(columnEl, column, item, index) {
   listEl.draggable = true;
   // set attribute of ondragstart to our drag fucntion
   listEl.setAttribute('ondragstart', 'drag(event)')
+  listEl.contentEditable = true;
+  // onFocus Event
+  listEl.id = index;
+  listEl.setAttribute('onfocusout', `updateItem(${index}, ${column})`);
   // Append
   columnEl.appendChild(listEl);
 }
@@ -116,49 +133,60 @@ function updateDOM() {
   backlogListArray.forEach((item, idx) => {
     createItemEl(backlogList, 0, item, idx);
   })
+  backlogListArray = filterEmptyItem(backlogListArray);
   // Progress Column
   progressList.textContent = '';
   progressListArray.forEach((item, idx) => {
-    createItemEl(progressList, 0, item, idx);
+    createItemEl(progressList, 1, item, idx);
   })
+  progressListArray = filterEmptyItem(progressListArray);
   // Complete Column
   completeList.textContent = '';
   completeListArray.forEach((item, idx) => {
-    createItemEl(completeList, 0, item, idx);
+    createItemEl(completeList, 2, item, idx);
   })
+  completeListArray = filterEmptyItem(completeListArray);
   // On Hold Column
   onHoldList.textContent = '';
   onHoldListArray.forEach((item, idx) => {
-    createItemEl(onHoldList, 0, item, idx);
+    createItemEl(onHoldList, 3, item, idx);
   })
+  onHoldListArray = filterEmptyItem(onHoldListArray);
   // Run getSavedColumns only once
   updateOnLoad = true;
   // Update Local Storage
   updateSavedColumns();
 }
 
+// Update Item - Delete if necessary, or update Array value
+function updateItem(id, column) {
+  const selectedArray = listArray[column];
+  // console.log('selectedArray: ', selectedArray);
+  const selectedColumnEl = listColumns[column].children;
+  // console.log(selectedColumnEl[id].textContent);
+
+  if (!dragging) {
+      // if content is blank/ empty
+    if (!selectedColumnEl[id].textContent) {
+      // this will make content to null
+      delete selectedArray[id];
+    } else {
+      // if content is not empty, update with the current content
+      selectedArray[id] = selectedColumnEl[id].textContent
+    }
+    updateDOM();
+  }
+}
+
 // Allows arrays to reflect Drag and Drop items
 function rebuildArrays() {
   // after drop -  browser dom is updated the HTMLCllection
   // we will need to rebuild our arrayList per dom updated contents
-    // reset/ empty out each ListArray
-    // push update contents to ListArray
-  backlogListArray = []
-  for (let i=0; i<backlogList.children.length; i++) {
-    backlogListArray.push(backlogList.children[i].textContent);
-  }
-  progressListArray = []
-  for (let i=0; i<progressList.children.length; i++) {
-    progressListArray.push(progressList.children[i].textContent);
-  }
-  completeListArray = []
-  for (let i=0; i<completeList.children.length; i++) {
-    completeListArray.push(completeList.children[i].textContent);
-  }
-  onHoldListArray = []
-  for (let i=0; i<onHoldList.children.length; i++) {
-    onHoldListArray.push(onHoldList.children[i].textContent);
-  }
+  // Important Note: backlogList.children is HTMLCollection array like object
+  backlogListArray = Array.from(backlogList.children).map(el => el.textContent);
+  progressListArray = Array.from(progressList.children).map(el => el.textContent);
+  completeListArray = Array.from(completeList.children).map(el => el.textContent);
+  onHoldListArray = Array.from(onHoldList.children).map(el => el.textContent);
   updateDOM();
 }
 
@@ -167,6 +195,7 @@ function rebuildArrays() {
 function addInputToColumn(column) {
   // console.log(addItems[column].textContent);
   const itemText = addItems[column].textContent;
+  if (!itemText) return;
   const selectedArray = listArray[column];
   selectedArray.push(itemText);
   addItems[column].textContent = '';
