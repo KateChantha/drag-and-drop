@@ -188,15 +188,6 @@ function rebuildArrays() {
   progressListArray = Array.from(progressList.children).map(el => el.textContent);
   completeListArray = Array.from(completeList.children).map(el => el.textContent);
   onHoldListArray = Array.from(onHoldList.children).map(el => el.textContent);
-  
-  // completeListArray = []
-  // for (let i=0; i<completeList.children.length; i++) {
-  //   completeListArray.push(completeList.children[i].textContent);
-  // }
-  // onHoldListArray = []
-  // for (let i=0; i<onHoldList.children.length; i++) {
-  //   onHoldListArray.push(onHoldList.children[i].textContent);
-  // }
   updateDOM();
 }
 
