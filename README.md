@@ -7,8 +7,7 @@
 #### 3. Make a text input using div tag [Making content editable](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Editable_content)
 
 ### Future Improvements
-- Fixing the highlighting
-- Making it easier to drag vs edit
-- Adding a delete button to the items
-- Add ability to rename columns
-- Add ability to add more columns
+[x] Fixing content area portion to drag vs edit
+[ ] Adding a delete button to the items
+[ ] Add ability to rename columns
+[ ] Add ability to add more columns
