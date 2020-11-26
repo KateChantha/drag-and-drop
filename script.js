@@ -101,7 +101,27 @@ function filterEmptyItem(array){
 }
 
 
-// Create DOM Elements for each list item
+// // Create DOM Elements for each list item
+// function createItemEl(columnEl, column, item, index) {
+//   // console.log('columnEl:', columnEl);
+//   // console.log('column:', column);
+//   // console.log('item:', item);
+//   // console.log('index:', index);
+//   // List Item
+//   const listEl = document.createElement('li');
+//   listEl.classList.add('drag-item');
+//   listEl.textContent = item;
+//   listEl.draggable = true;
+//   // set attribute of ondragstart to our drag fucntion
+//   listEl.setAttribute('ondragstart', 'drag(event)')
+//   listEl.contentEditable = true;
+//   // onFocus Event
+//   listEl.id = index;
+//   listEl.setAttribute('onfocusout', `updateItem(${index}, ${column})`);
+//   // Append
+//   columnEl.appendChild(listEl);
+// }
+
 function createItemEl(columnEl, column, item, index) {
   // console.log('columnEl:', columnEl);
   // console.log('column:', column);
@@ -110,15 +130,18 @@ function createItemEl(columnEl, column, item, index) {
   // List Item
   const listEl = document.createElement('li');
   listEl.classList.add('drag-item');
-  listEl.textContent = item;
+  const divEl = document.createElement('div');
+  divEl.textContent = item;
   listEl.draggable = true;
   // set attribute of ondragstart to our drag fucntion
   listEl.setAttribute('ondragstart', 'drag(event)')
-  listEl.contentEditable = true;
+  divEl.contentEditable = true;
+  
   // onFocus Event
   listEl.id = index;
   listEl.setAttribute('onfocusout', `updateItem(${index}, ${column})`);
   // Append
+  listEl.appendChild(divEl);
   columnEl.appendChild(listEl);
 }
 
